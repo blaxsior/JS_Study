@@ -1,0 +1,20 @@
+.list {
+    padding : 1rem;
+    background-color: rgb(211, 211, 211);
+    border-radius: 10px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.list div:nth-child(2n+1) {
+    background-color: aquamarine;
+    color:black;
+}
+
+.list div:nth-child(2n) {
+    background-color: cadetblue;
+    color:black;
+}
+

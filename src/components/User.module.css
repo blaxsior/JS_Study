@@ -1,0 +1,9 @@
+.user {
+    padding:0.4rem;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.user span:nth-child(1){
+    padding-right: 0.3rem;    
+}

@@ -1,0 +1,10 @@
+.grid {
+  display: grid;
+  grid-template-areas: 
+    'header' 'header' 'header' 
+    'leftSide' 'main' 'rightSide'
+    'foot' 'foot' 'foot';
+  gap : 1.5rem; 
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 6fr 1fr;
+}
