@@ -1,0 +1,49 @@
+.lockCase {
+
+    position: relative;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+}
+.lock {
+    box-sizing: border-box;
+    position: relative;
+    padding : 2.5rem 2rem;
+    background-color: rgb(97, 97, 194);
+    border-radius: 10px 5px 5px 10px;
+    color:white;
+    display:flex;
+    flex-direction: row;
+    gap:1rem;
+}
+.locker {
+    
+    position: relative;
+    top: 0%;
+    height:6rem;
+    width:3rem;
+    background-color: rgb(158, 158, 158);
+    border-radius: 0 30px 30px 0;
+    transition: transform 1s 0.2s;
+}
+
+.locker div {
+    position:absolute;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: -1px;
+    background-color: white;
+    border-radius: 0 15px 15px 0;
+}
+
+.success {
+    transform: translateX(10px);
+}
+
+.successText {
+    position: absolute;
+    bottom:-3rem;
+}
