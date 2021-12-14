@@ -20,13 +20,13 @@ const Lock = (p: { minNum: Readonly<number>, maxNum: Readonly<number>, password:
         console.log(enteredPassword);
     });
 
-    const valueChangeHandler = (num: number, index: number) => {
+    const valueChangeHandler = useCallback((num: number, index: number) => {
         setEnteredPassword(prev => {
             const arr = [...prev];
             arr[index] = num;
             return arr;
         })
-    }
+    },[]);
 
     const lockNumbers = [];
 
