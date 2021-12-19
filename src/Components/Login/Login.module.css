@@ -1,0 +1,12 @@
+.loginForm {
+    max-width: 600px;
+    background-color: bisque;
+    display:flex;
+    flex-direction: column;
+    padding : 0.5rem 1rem; 
+    border-radius: 10px;
+}
+
+.action {
+    align-self: flex-end;
+}

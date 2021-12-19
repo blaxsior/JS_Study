@@ -1,0 +1,28 @@
+.main_header {
+    display:flex;
+    background-color: #44d6a6;
+    width:100vw;
+    padding:0.5rem;
+}
+
+.main_page {
+    justify-self:flex-start;
+    align-self: flex-start;
+}
+
+.link {
+    justify-self: flex-end;
+    display:flex;
+    flex-direction: row;
+    height:inherit;
+    gap: 0.1rem;
+}
+
+.link a {
+    padding: 0.2rem;
+    height:inherit;
+}
+
+.link a:hover {
+    background-color: #7fffd4;
+}
