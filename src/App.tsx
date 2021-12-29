@@ -1,23 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import CGrid from './components/CGrid';
+import useHttp from './hooks/use-http';
+import CharacterInfo from './interface/character-info';
+
+const url = "https://api.genshin.dev/characters";
 
 function App() {
+  const [characters, setCharacters] = useState<CharacterInfo[]>([]);
+  const { fetchFunc } = useHttp();
+  const [isWaiting, setIsWaiting] = useState(false);
+
+  useEffect(() => {
+    const asyncAction = async () => {
+      setIsWaiting(true);
+      try {
+        const characterNames = await fetchFunc(url) as string[];
+        const fetchedCharacters = await fetchFunc(characterNames.map(ch => `${url}/${ch}`)) as any[];
+        console.log(fetchedCharacters);
+        setCharacters(fetchedCharacters);
+      }
+      catch (e) {
+        console.log(e);
+      }
+      setIsWaiting(false);
+    };
+
+    (async () => { await asyncAction() })();
+  }, [fetchFunc]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {isWaiting &&
+          <div>Please wait a moment ...</div>
+        }
+        {!isWaiting &&
+          <CGrid characters={characters}/>
+        }
       </header>
     </div>
   );

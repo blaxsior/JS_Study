@@ -1,0 +1,9 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: gray;
+    border: 1rem white solid;
+    width: max(20vw, 15rem);
+    margin: 0.3rem 0;
+}
