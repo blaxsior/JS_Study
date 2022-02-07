@@ -5,6 +5,13 @@ type Data = {
   name: string
 }
 
+/**
+ * API Hello
+ * @param req 
+ * @param res 
+ * 
+ * @json name : string
+ */
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
