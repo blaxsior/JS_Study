@@ -9,7 +9,7 @@ nextjs 프레임워크를 타입스크립트 환경에서 사용해 보았습니
 
 
 - 페이지 : NextPage<IProps> 상속. 외부(getStaticProps 등 포함) 에서 받아오는 프로퍼티가 없다면 제네릭 설정은 필요 없음.
-  - getStaticProps 에서 받아오는 경우 : IProps 에 InferGetStaticPropsType<typeof getStaticProps> 이 포함된다. 이게 있어야 
+  - getStaticProps 에서 받아오는 경우 : IProps 에 InferGetStaticPropsType<typeof getStaticProps> 이 포함된다.
   - getServerSideProps 에서 받아오는 경우 : IProps 에 InferGetServerSidePropsType<typeof getServerSideProps> 이 포함된다.
 - getStaticProps : GetStaticProps<IProps, params> 상속하는 함수 생성 및 context가 GetStaticPropsContext<params> 상속. 
 - getStaticPaths : GetStaticPaths<params> 상속 및 context가 GetStaticPathsContext 상속
