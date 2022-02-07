@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## nextjs을 타입스크립트 환경에서 사용하기
 
-## Getting Started
+nextjs 프레임워크를 타입스크립트 환경에서 사용해 보았습니다.
 
-First, run the development server:
+- params : dynamic route 구현 시 사용되는 파일 명 내의 이름들을 포함한 인터페이스. [type].tsx 이면 type이 params에 포함된다.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+  params는 querystring 라이브러리의 ParsedUrlQuery를 상속해야 하므로, value 위치에 string|string\[\] 만 올 수 있다.
+- IProps : 페이지 컴포넌트에서 사용되는 프로퍼티를 정의한 타입으로, getStaticProps 혹은 getServerSideProps에서 생성한 데이터를 나타내는 인터페이스이다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 페이지 : NextPage<IProps> 상속. 외부(getStaticProps 등 포함) 에서 받아오는 프로퍼티가 없다면 제네릭 설정은 필요 없음.
+  - getStaticProps 에서 받아오는 경우 : IProps 에 InferGetStaticPropsType<typeof getStaticProps> 이 포함된다. 이게 있어야 
+  - getServerSideProps 에서 받아오는 경우 : IProps 에 InferGetServerSidePropsType<typeof getServerSideProps> 이 포함된다.
+- getStaticProps : GetStaticProps<IProps, params> 상속하는 함수 생성 및 context가 GetStaticPropsContext<params> 상속. 
+- getStaticPaths : GetStaticPaths<params> 상속 및 context가 GetStaticPathsContext 상속
+- getServerSideProps : GetServerSideProps<IProps, params> 상속하는 함수 생성 및 context가 GetServerSidePropsContext<params> 상속
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+주의 : get 함수들은 공통적으로 Get ~ 인터페이스를 제대로 구현했다면 context가 Get ~ Context 인터페이스를 상속하지 않아도 된다. 
+  
+반대로 해당 함수들이 Get ~ 타입을 상속하지 않는 대신 context에서 Get ~ Context 타입을 상속해도 함수는 정상적으로 동작하지만, 이 경우 Infer ~ 인터페이스에 의한 타입 추론은 안되므로 Get ~ 타입을 상속하게 코드를 작성하는 것이 더 편하다.
+ 
+  
+# 결론
+  
+동적 경로 사용시 경로에 대응되는 인터페이스 params 및 get~Props 함수에서 가져올 데이터 인터페이스 IProps을 생성한다.
+  
+페이지는 NextPage<InferGetServerSidePropsType<typeof get~Props>> 타입으로 만든다.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+getStaticPath는 GetStaticPaths<Params> 을 상속한다. (context는 GetStaticPathsContext을 상속 가능)
+  
+getStaticProps는 GetStaticProps<IProps,Params> 을 상속한다. (context는 GetStaticPropsContext<Params> 상속 가능 )
+  
+getServerSideProps는 GetServersideProps<IProps,Params> 을 상속한다. (context는 GetServerSideContext<Params> 상속 가능 )
